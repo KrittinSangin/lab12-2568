@@ -12,7 +12,7 @@ import {
 } from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
 import { LoremIpsum } from "lorem-ipsum";
-import { randomId } from "@mantine/hooks";
+import { randomId, useColorScheme } from "@mantine/hooks";
 import { v4 as uuidv4 } from "uuid";
 interface Task {
   id: string;
@@ -20,9 +20,11 @@ interface Task {
   description: string;
   isDone: boolean;
   dueDate: Date | null;
+  doneTime?: Date | null;
 }
 
 export default function HomePage() {
+  const [checked, setChecked] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([
     {
       id: "1",
@@ -64,6 +66,7 @@ export default function HomePage() {
       description: lorem.generateWords(10),
       isDone: false,
       dueDate: new Date(),
+      doneTime: new Date()
     };
     setTasks((prev) => [...prev, newTask]);
   };
@@ -112,31 +115,32 @@ export default function HomePage() {
                     </Text>
                   )}
                   {/* แสดง Date & Time */}
-                  <Text size="xs" c="gray">
-                    Done at:
+                  <Text size="xs" c="perm" >
+                    
+                    {task.isDone && <Text> Done at: {task.doneTime?.toLocaleDateString()} , {task.doneTime?.toLocaleTimeString()} </Text>}
+
                   </Text>
                 </Stack>
+                
                 {/* แสดง Button Done & Button Delete */}
                 <Group>
-                  <Button
-                    style={{
-                      backgroundColor: "#71c32fda",
-                      color: "#dce6e7ff",
-                    }}
-                    variant="light"
-                    size="xs"
-                    onClick={() => toggleDoneTask(task.id)}
-                  >
+                   <Checkbox
+                   checked={task.isDone}
+                   onChange={(event) => {
+                    setChecked(event.currentTarget.checked)
+                    toggleDoneTask(task.id)
+                    {task.doneTime = new Date()}
+                  } }
+
+                   />
                     Done
-                  </Button>
-                  <Button
-                    color="chanadda"
-                    variant="light"
-                    size="xs"
+                    <ActionIcon
+                    variant="light" color="red" aria-label="Settings"
                     onClick={() => deleteTask(task.id)}
-                  >
-                    Delete
-                  </Button>
+                    >
+                      <IconTrash size={17}
+                      ></IconTrash>
+                    </ActionIcon>
                 </Group>
               </Group>
             </Card>
