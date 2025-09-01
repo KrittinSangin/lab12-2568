@@ -45,7 +45,7 @@ export default function Sidebar() {
       <Box p={10}>
         <Group>
           <Indicator inline size={10} offset={5} position="bottom-end" color="green" withBorder>
-            <Avatar src="../../public/Oerm.jpg"></Avatar>
+            <Avatar src="/Oerm.jpg"></Avatar>
           </Indicator>
          <Text>User: Perm </Text>
         </Group>
