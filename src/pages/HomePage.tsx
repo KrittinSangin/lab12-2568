@@ -12,7 +12,7 @@ import {
 } from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
 import { LoremIpsum } from "lorem-ipsum";
-import { randomId, useColorScheme } from "@mantine/hooks";
+import { randomId } from "@mantine/hooks";
 import { v4 as uuidv4 } from "uuid";
 interface Task {
   id: string;
@@ -24,8 +24,9 @@ interface Task {
 }
 
 export default function HomePage() {
-  const [checked, setChecked] = useState(false);
+  const [, setChecked] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([
+    
     {
       id: "1",
       title: "Read a book",
@@ -84,6 +85,7 @@ export default function HomePage() {
   };
 
   return (
+
     <Container size="sm" py="lg">
       <Stack align="center">
         <Title order={2}>Todo List</Title>
